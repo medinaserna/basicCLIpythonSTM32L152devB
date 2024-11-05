@@ -3,7 +3,7 @@ import time
 
 def main():
     # Set up serial port parameters
-    port = "/dev/ttyUSB0"  # Update with your serial port
+    port = "/dev/ttyACM0"  # Update with your serial port
     baud_rate = 115200       # Update with your desired baud rate
 
     try:
@@ -19,11 +19,15 @@ def main():
                 break
 
             # Send data to the serial port
-            ser.write(user_input.encode())
-            print("Data sent, waiting for response...")
+            
+            if user_input.lower() == '1':
+                ser.write('SVHDDPWOF00001SV'.encode());
+                print("Data sent, waiting for response...")
+            #ser.write(user_input.encode())
+            #print("Data sent, waiting for response...")
 
             # Give the device some time to respond
-            time.sleep(1)
+            # time.sleep(1)
 
             # Read the response from the serial port
             response = ser.readline().decode().strip()
